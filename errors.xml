@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+    <err id="1"># Error, two parameters are required: year and type</err>
+    <err id="2"># Error, year should be a number between 2013 and 2021</err>
+    <err id="3"># Error, invalid type. Type should be one of this options: sc, xf, cw, go, mc, enas </err>
+    <err id="5"># Error, invalid type and year.
+#  Year should be a number between 2013 and 2021
+#  Type should be one of this options: sc, xf, cw, go, mc, enas
+    </err>
+</errors>

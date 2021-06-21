@@ -13,11 +13,13 @@
     </xsl:template>
 
     <xsl:template name="no_errors">
-
-        <xsl:value-of select="//year"/>
-        <xsl:text> for </xsl:text>
+        <xsl:text># </xsl:text>
+        <xsl:text> Drivers for </xsl:text>
         <xsl:value-of select="//serie_type"/>
-
+        <xsl:text> for </xsl:text>
+        <xsl:value-of select="//year"/>
+        <xsl:text> season</xsl:text>
+        <xsl:text>&#xa;*** </xsl:text>
         <xsl:for-each select="//drivers/driver">
             <xsl:call-template name="driver">
                 <xsl:with-param name="driver" select="."/>
@@ -29,25 +31,25 @@
         <xsl:param name="driver"/>
 
         <xsl:text>&#xa;*** </xsl:text>
-        <xsl:text>&#xa;###</xsl:text><xsl:value-of select="$driver/full_name"/>
+        <xsl:text>&#xa;### </xsl:text><xsl:value-of select="$driver/full_name"/>
         <xsl:text>&#xa;1.  Country: </xsl:text><xsl:value-of select="$driver/country"/>
         <xsl:text>&#xa;2.  Birth date: </xsl:text><xsl:value-of select="$driver/birth_date"/>
         <xsl:text>&#xa;3.  Birthplace: </xsl:text><xsl:value-of select="$driver/birth_place"/>
 
         <xsl:text>&#xa;4.  Car manufacturer: </xsl:text>
-            <xsl:if test="$driver/car = ''"><xsl:text> - &#xa;</xsl:text></xsl:if>
-            <xsl:if test="not($driver/car = '')">
-                <xsl:value-of select="$driver/car"/>
-            </xsl:if>
+        <xsl:if test="not($driver/car)"><xsl:text>-</xsl:text></xsl:if>
+        <xsl:if test="$driver/car">
+            <xsl:value-of select="$driver/car"/>
+        </xsl:if>
 
         <xsl:text>&#xa;5.  Rank: </xsl:text>
-            <xsl:if test="$driver/rank = ''"><xsl:text> - &#xa;</xsl:text></xsl:if>
-            <xsl:if test="not($driver/rank = '')">
-                <xsl:value-of select="$driver/rank"/>
-                <xsl:call-template name="show_statistics">
-                    <xsl:with-param name="stat" select="$driver/statistics"/>
-                </xsl:call-template>
-            </xsl:if>
+        <xsl:if test="$driver/rank = ''"><xsl:text> - &#xa;</xsl:text></xsl:if>
+        <xsl:if test="not($driver/rank = '')">
+            <xsl:value-of select="$driver/rank"/>
+            <xsl:call-template name="show_statistics">
+                <xsl:with-param name="stat" select="$driver/statistics"/>
+            </xsl:call-template>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template name="show_statistics">

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Este XML contiene los diferentes tipos de error que contemplamos al chequear los parametros recibidos por entrada estándar.
+     Cada elemento err, contiene un atributo id que corresponde al tipo de error que puede retornar la funcion
+     chech_parameters del archivo full_validations.sh -->
+
 <errors>
     <err id="1"># Error, two parameters are required: year and type.</err>
     <err id="2"># Error, year should be a number between 2013 and 2021.</err>

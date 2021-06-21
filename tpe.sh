@@ -18,7 +18,7 @@ if [ $valid_parameters -eq 0 ]
       category=${2,,}
 
       curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}/drivers/list.xml?api_key=${SPORTRADAR_API}" -o drivers_list.xml
-      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}}/standings/drivers.xml?api_key=${SPORTRADAR_API}" -o drivers_standings.xml
+      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}/standings/drivers.xml?api_key=${SPORTRADAR_API}" -o drivers_standings.xml
       
       # Borramos el namespace utilizando sed a traves de una expresion regular.
 

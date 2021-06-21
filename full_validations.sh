@@ -1,8 +1,10 @@
 #!/bin/bash
 
+# Definimos una constante MAX_PARAMETERS con la cantidad maxima de parametros que podemos recibir por entrada estandar.
+declare -r MAX_PARAMETERS=2
+
 # Funcion que chequea si el parametro $1 matchea con la expresion regular recibida en $2.
 # Retorna 0 si matchea, 1 sino.
-declare -r MAX_PARAMETERS=2
 
 function pattern() {
 	if echo "$1" | egrep -i "$2" &> /dev/null
@@ -46,7 +48,7 @@ function check_year(){
 
 function check_category() {
 
-    pattern "$1" 'mc|sc|xf|cw|go|enas'
+    pattern "$1" 'mc|sc|xf|cw|go'
 	function_return=$?
 
     if [ $function_return -eq 1 ]
@@ -56,12 +58,13 @@ function check_category() {
                 return 0
 }
 
-# Funcion que devuelve la suma de los distintos errores que puede haber durante el chequeo de los parametros
+# Funcion que devuelve un valor para cada uno de los distintos errores que puede haber durante el chequeo de los parametros
 # recibidos por entrada estandar: año ($1) y type ($2)
 # Retorna 0 si no hubo errores en los chequeos.
 # Retorna 1 si la cantidad de parametros recibidos por entrada estandar son invalidos. Solo recibimos dos, el year y el type.
 # Retorna 2 si el tipo de competicion es valido y el año no es un numero o no esta en el intervalo [2013 - 2021].
 # Retrona 3 si el tipo de competicion es invalido y el año es valido.
+# Retorna 4 si se ingresa la categoría enas y un año distinto de 2020.
 # Retorna 5 si el tipo de competicion es invalido y el año no es numero o el año no corresponde al intervalo [2013 - 2021].
 
 function check_parameters() {
@@ -71,13 +74,25 @@ function check_parameters() {
             return 1
     fi
 
-    check_year $2
-    year_check_value=$?
+    # Chequeamos el caso especial de la categoría enas, que solo aplica para el 2020.
 
-    check_category $3
-    type_check_value=$?
+    if [ "$3" = "enas" ] 
+        then
+            if [ $2 -ne 2020 ]
+                then 
+                    return 4
+            else 
+                return 0
+            fi
+    else
+            check_year $2
+            year_check_value=$?
+
+            check_category $3
+            type_check_value=$?
+    fi
 
     toReturn="$((year_check_value+type_check_value))"
-
+   
     return $toReturn
 }

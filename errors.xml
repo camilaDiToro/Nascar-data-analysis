@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <errors>
-    <err id="1"># Error, two parameters are required: year and type</err>
-    <err id="2"># Error, year should be a number between 2013 and 2021</err>
-    <err id="3"># Error, invalid type. Type should be one of this options: sc, xf, cw, go, mc, enas </err>
-    <err id="5"># Error, invalid type and year.
-#  Year should be a number between 2013 and 2021
-#  Type should be one of this options: sc, xf, cw, go, mc, enas
+    <err id="1"># Error, two parameters are required: year and type.</err>
+    <err id="2"># Error, year should be a number between 2013 and 2021.</err>
+    <err id="3"># Error, invalid type. Type should be one of this options: sc, xf, cw, go, mc, enas.</err>
+    <err id="4"># Error, invalid year for type enas. The only valid year for type enas is 2020.</err>
+    <err id="5"># Error, invalid year and type.
+# Year should be a number between 2013 and 2021.
+# Type should be one of this options: sc, xf, cw, go, mc, enas.
+# Parameters could be in the wrong order. The first parameter must be year and type must be second one, not otherwise.
     </err>
 </errors>

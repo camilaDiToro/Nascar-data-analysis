@@ -17,16 +17,14 @@ if [ $valid_parameters -eq 0 ]
 
       category=${2,,}
 
-      # Nos aseguramos que no nos hayan pasado por ejemplo, un 02019 como parametro ya que validaria y romperia el codigo
-      year=10#$1
-
-      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${year}/drivers/list.xml?api_key=${SPORTRADAR_API}" -o drivers_list.xml
-      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${year}/standings/drivers.xml?api_key=${SPORTRADAR_API}" -o drivers_standings.xml
+      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}/drivers/list.xml?api_key=${SPORTRADAR_API}" -o drivers_list.xml
+      curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}}/standings/drivers.xml?api_key=${SPORTRADAR_API}" -o drivers_standings.xml
       
       # Borramos el namespace utilizando sed a traves de una expresion regular.
 
       sed -i 's/ xmlns="[^"]*"//' drivers_list.xml && sed -i 's/ xmlns="[^"]*"//' drivers_standings.xml
 fi
+
 
 # Ejecutamos la consulta xQuery para obtener nascar_data.xml.
 # Si valid_parameters tuviera un valor distinto de cero, obtendremos un XML con la leyenda del error producido.

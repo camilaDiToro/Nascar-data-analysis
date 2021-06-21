@@ -14,11 +14,11 @@ function pattern() {
     return 1
 }
 
-# Funcion que chequea si el parametro $1 es un valor numerico.
-# Retorna 0 si es un numero, 1 sino.
+# Funcion que chequea si el parametro $1 es un valor numerico en base 10.
+# Retorna 0 si es un numero en base 10 , 1 sino.
 
 function is_number(){
-	pattern $1 '^[0-9]+$'
+	pattern $1 '^(0|[1-9][0-9]+)$'
 	return $?
 }
 

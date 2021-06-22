@@ -42,16 +42,29 @@
     <!-- Template que recibe un elemento driver y muestra su informacion
          Si el driver no posee el tag <car>, se mostrara en car manufacturer un guión "-"
          Si el driver posee un rank, se mostara su ranking en el y sus estadisticas. Caso contrario, se mostrara un
-         guion y no apareceran las estadisticas. Las estadisticas las obtenemos mediante el template "show_statistics". -->
+         guion y no apareceran las estadisticas. Las estadisticas las obtenemos mediante el template "show_statistics".
+         Para cualquier elemento, si el tag correspondiente está vacio se mostrara un guion en el lugar de su contenido -->
 
     <xsl:template name="driver">
         <xsl:param name="driver"/>
 
         <xsl:text>&#xa;*** </xsl:text>
         <xsl:text>&#xa;### </xsl:text><xsl:value-of select="$driver/full_name"/>
-        <xsl:text>&#xa;1.  Country: </xsl:text><xsl:value-of select="$driver/country"/>
-        <xsl:text>&#xa;2.  Birth date: </xsl:text><xsl:value-of select="$driver/birth_date"/>
-        <xsl:text>&#xa;3.  Birthplace: </xsl:text><xsl:value-of select="$driver/birth_place"/>
+
+        <xsl:text>&#xa;1.  Country: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$driver/country"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;2.  Birth date: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$driver/birth_date"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;3.  Birthplace: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$driver/birth_place"/>
+        </xsl:call-template>
 
         <xsl:text>&#xa;4.  Car manufacturer: </xsl:text>
         <xsl:choose>
@@ -84,12 +97,48 @@
     <xsl:template name="show_statistics">
         <xsl:param name="stat"/>
         <xsl:text>&#xa;##### Statistics </xsl:text>
-        <xsl:text>&#xa;- Season points: </xsl:text><xsl:value-of select="$stat/season_points"/>
-        <xsl:text>&#xa;- Wins: </xsl:text><xsl:value-of select="$stat/wins"/>
-        <xsl:text>&#xa;- Poles:  </xsl:text><xsl:value-of select="$stat/poles"/>
-        <xsl:text>&#xa;- Races not finished: </xsl:text><xsl:value-of select="$stat/races_not_finished"/>
-        <xsl:text>&#xa;- Laps completed: </xsl:text><xsl:value-of select="$stat/laps_completed"/>
+
+        <xsl:text>&#xa;- Season points: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$stat/season_points"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;- Wins: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$stat/wins"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;- Poles:  </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$stat/poles"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;- Races not finished: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$stat/races_not_finished"/>
+        </xsl:call-template>
+
+        <xsl:text>&#xa;- Laps completed: </xsl:text>
+        <xsl:call-template name="value-or-empty">
+            <xsl:with-param name="value" select="$stat/laps_completed"/>
+        </xsl:call-template>
+
         <xsl:text>&#xa;</xsl:text>
+    </xsl:template>
+
+    <!-- Función que recibe un nodo.-->
+    <!-- Si el nodo está vacio pone un "-", caso contrario pone el contenido del nodo recibido por parametro-->
+
+    <xsl:template name="value-or-empty">
+        <xsl:param name="value"/>
+        <xsl:choose>
+            <xsl:when test="$value = ''">
+                <xsl:text> - </xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$value"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:transform>

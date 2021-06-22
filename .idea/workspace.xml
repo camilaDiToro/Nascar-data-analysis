@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="80c8bb52-2f7a-43db-8ff8-05b04f029981" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/errors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/errors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extract_nascar_data.xq" beforeDir="false" afterPath="$PROJECT_DIR$/extract_nascar_data.xq" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generate_markdown.xsl" beforeDir="false" afterPath="$PROJECT_DIR$/generate_markdown.xsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nascar_data.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +35,7 @@
       <option name="presentableId" value="Default" />
       <updated>1624241635687</updated>
       <workItem from="1624241637586" duration="4914000" />
-      <workItem from="1624310744457" duration="4602000" />
+      <workItem from="1624310744457" duration="6416000" />
     </task>
     <servers />
   </component>

@@ -7,8 +7,7 @@
 check_parameters $# $*
 valid_parameters=$?
 
-# Si la funcion check_parameters devolvio cero, significa que los parametros son correctos y es seguro llamar a la API para obtener los XML.
-
+# Si la funcion check_parameters retorna cero, significa que los parametros son correctos y es seguro llamar a la API para obtener los XML que nos serviran de base.
 
 if [ $valid_parameters -eq 0 ]
     then
@@ -17,10 +16,12 @@ if [ $valid_parameters -eq 0 ]
 
       category=${2,,}
 
+      # Hacemos el llamado a la API con los parametros recibidos por entrada estandar.
+
       curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}/drivers/list.xml?api_key=${SPORTRADAR_API}" -o drivers_list.xml
       curl -X GET "http://api.sportradar.us/nascar-ot3/${category}/${1}/standings/drivers.xml?api_key=${SPORTRADAR_API}" -o drivers_standings.xml
       
-      # Borramos el namespace utilizando sed a traves de una expresion regular.
+      # Borramos el namespace de ambos XML's utilizando sed a traves de una expresion regular.
 
       sed -i 's/ xmlns="[^"]*"//' drivers_list.xml && sed -i 's/ xmlns="[^"]*"//' drivers_standings.xml
 fi

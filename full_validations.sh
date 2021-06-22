@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Definimos una constante MAX_PARAMETERS con la cantidad maxima de parametros que podemos recibir por entrada estandar.
+
 declare -r MAX_PARAMETERS=2
 
 # Funcion que chequea si el parametro $1 matchea con la expresion regular recibida en $2.
@@ -22,7 +23,7 @@ function is_number(){
 	return $?
 }
 
-# Funcion que chequea si el parametro $1 es un año valido en el rango [2013 - 2021].
+# Funcion que chequea si el parametro $1 es un año valido en el rango natural [2013 - 2021].
 # Retorna 0 si es un año valido, 2 si el parametro no es numero o no esta en el intervalo de años correspondiente.
 
 function check_year(){
@@ -42,9 +43,9 @@ function check_year(){
             return 0
 }
 
-# Funcion que chequea si el parametro correspondiente $1 es un tipo de competicion valido.
-# La funcion no es case sensitive. POr ende, los strings 'mC', 'mC' o 'MC' matchearan con la expresion regular.
+# Funcion que chequea si el parametro $1 es un tipo de competicion valido.
 # Retorna 0 si es un tipo de competicion valido, 3 sino.
+# Nota: La funcion no es case sensitive. Por ende, los strings 'mC', 'Mc' o 'MC' matchearan con la expresion regular.
 
 function check_category() {
 
@@ -58,10 +59,10 @@ function check_category() {
                 return 0
 }
 
-# Funcion que devuelve un valor para cada uno de los distintos errores que puede haber durante el chequeo de los parametros
-# recibidos por entrada estandar: año ($1) y type ($2)
+# Funcion que devuelve un valor para cada uno de los distintos errores que puede haber durante el chequeo de los parametros year y type
+# recibidos por entrada estandar.
 # Retorna 0 si no hubo errores en los chequeos.
-# Retorna 1 si la cantidad de parametros recibidos por entrada estandar son invalidos. Solo recibimos dos, el year y el type.
+# Retorna 1 si la cantidad de parametros recibidos por entrada estandar es invalida. 
 # Retorna 2 si el tipo de competicion es valido y el año no es un numero o no esta en el intervalo [2013 - 2021].
 # Retrona 3 si el tipo de competicion es invalido y el año es valido.
 # Retorna 4 si se ingresa la categoría enas y un año distinto de 2020.
@@ -74,7 +75,8 @@ function check_parameters() {
             return 1
     fi
 
-    # Chequeamos el caso especial de la categoría enas, que solo aplica para el 2020.
+    # Chequeamos primero el caso especial de la categoría "enas" que solo es valida para el año 2020 segun SportsRadar.
+    # De no haberse ingresado "enas" como type, se prodece a llamar a las funciones check_year y check_category.
 
     if [ "$3" = "enas" ] 
         then
@@ -91,6 +93,8 @@ function check_parameters() {
             check_category $3
             type_check_value=$?
     fi
+
+    # Hacemos la suma de las variables que contienen el valor de retorno de las funciones check_year y check_category.
 
     toReturn="$((year_check_value+type_check_value))"
    

@@ -1,15 +1,12 @@
 
-(: Recibimos en la variable $err el valor de retorno de la funcion check_parameters, del archivo full_validations.sh :)
-(: El valor de la variable será 0 si no hubo errores y será distinto de 0 si hubo algún error en los parametros recibidos:)
+(: La variable $err contiene el valor de retorno de la funcion check_parameters del archivo full_validations.sh. 
+   El valor de la variable será 0 si no hubo errores y será distinto de 0 si hubo algún error en los parametros recibidos. :)
 
 declare variable $err external;
 
-
-(:-------------------------Funciones auxiliares-----------------------------:)
-
 (: Funcion que recibe como parametro un nodo driver.
    Retorna el elemento <car> cuyo contenido será el nombre del fabricante en caso de que el driver tenga un auto.
-   Si el driver no tiene auto, no devuelve nada:)
+   Si el driver recibido no posee este elemento, la funcion no retorna nada. :)
 
 declare function local:get_car($driver){
     if(fn:exists($driver/car/child::node())) then
@@ -20,7 +17,7 @@ declare function local:get_car($driver){
 
 
 (: Funcion que recibe como parametro un nodo driver y sus estadisticas.
-   Retorna un nodo driver con la información correspondiente. :)
+   Retorna un nodo driver con la información necesaria para cumplir con la consigna. :)
 
 (: Algunos comentarios sobre casos particulares:
    1) Insertamos el tag <car> solo si el corredor tiene un auto. Es decir, en caso de que el corredor no tenga auto,
@@ -46,11 +43,6 @@ declare function local:get_driver($driver, $statistics)as node(){
     </driver>
 };
 
-
-
-
-(:-------------------------Acá comenzamos a procesar el xml-----------------------------:)
-
 (: Evaluamos si hubo errores. :)
 
 if(xs:integer($err) eq 0) then
@@ -66,7 +58,7 @@ return
             {
 
                 (: Ordenamos los drivers alfabeticamente. Luego, llamamos al a fución get_driver que retornará
-                   el nodo driver con la información correspondiente. :)
+                   el nodo driver con la información necesaria para cumplir con la consigna. :)
 
                 for $driver in doc("drivers_list.xml")//driver
                 let $statistics:= $standings//driver[./@id = $driver/@id]
